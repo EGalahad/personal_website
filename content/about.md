@@ -4,7 +4,7 @@ date: 2023-07-17T16:40:50+08:00
 author: "Elijah Galahad"
 ---
 
-## Weng Haoyang
+## Elijah Galahad (Weng Haoyang)
 
 I am a first-year undergraduate student in Yao Class (founded by [Andrew Yao](https://en.wikipedia.org/wiki/Andrew_Yao)), Institute for Interdisciplinary Information Sciences, Tsinghua University.
 
