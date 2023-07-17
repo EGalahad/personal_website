@@ -132,7 +132,7 @@ url = "https://github.com/EGalahad/"
 name = "CV"
 icon = "fa fa-2x fa-file-pdf-o"
 weight = 2
-url = "https://github.com/EGalahad/personal_website/static/pdf/cv.pdf"
+url = "https://github.com/EGalahad/personal_website/blob/main/static/pdf/about.pdf"
 
 # [[params.social]]
 # name = "Gitlab"
