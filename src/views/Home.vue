@@ -1,14 +1,27 @@
 <script setup>
+import LazyVideo from '../components/LazyVideo.vue';
+import avatarImg from '@/assets/images/portrait.jpeg';
+import bfmZeroPlaceholder from '@/assets/images/publications/rlfp.png';
+import hdmiVideo from '@/assets/images/publications/suitcase_4x.mp4';
+import facetVideo from '@/assets/images/publications/facet.mp4';
+import threeDgsVideo from '@/assets/images/publications/3dgs_640-fast.mp4';
+import rlfpPoster from '@/assets/images/publications/rlfp.png';
+import vlaPoster from '@/assets/images/projects/multi-noise.drawio.png';
+import cyberDribbleVideo from '@/assets/images/projects/cyber_dribble.mp4';
+import gaussFusionVideo from '@/assets/images/projects/gauss_fusion.mp4';
+import audioReactiveVideo from '@/assets/images/projects/audio_reactive_controls.mp4';
+import rumbaVideo from '@/assets/images/extra/rumba.mp4';
+
 const hero = {
   displayName: 'Haoyang Weng 「翁颢洋」',
   description: [
-    'I\'m a final-year undergraduate at <strong>Institute for Interdisciplinary Information Sciences (IIIS), Tsinghua University</strong>. Currently, I work with Prof. <strong>Yang Gao</strong> at IIIS and previously interned at <strong>LeCAR Lab</strong>, advised by Prof. <strong>Guanya Shi</strong>.',
+    'I\'m a final-year undergraduate at <strong>Yao Class, Tsinghua</strong>. Currently, I work with Prof. <strong>Yang Gao</strong> at IIIS and previously interned at <strong>LeCAR Lab</strong>, advised by Prof. <strong>Guanya Shi</strong>.',
     // 'I am intersted in the intersection between Machine Learning and Robotics. My goal is to build scalable and efficient robot learning algorithms.',
-    '<strong>Research Interests:</strong> Machine Learning for Robotics.',
-    '<strong>Goal:</strong> To build scalable and efficient robot learning algorithms.',
-    'I believe that the combination of <strong>clean implementation of minimal algorithmic priors</strong> and <strong>large scale multi-source data</strong> will lead to generalizable robot learning algorithms.'
+    // '<strong>Goal:</strong> To build scalable and efficient robot learning algorithms.',
+    '<strong>Research Interests:</strong> reinforcement learning, large scale machine learning, whole-body loco-manipulation, humanoid robots.',
+    'I believe that the combination of <strong>clean, efficient implementation of minimal algorithmic priors</strong> and <strong>large scale multi-source data</strong> will lead to generalizable robot learning algorithms.'
   ],
-  avatar: '/images/portrait.jpeg',
+  avatar: avatarImg,
   links: [
     {
       label: 'CV',
@@ -29,12 +42,42 @@ const hero = {
   ]
 };
 
+const isVideo = (path) => typeof path === 'string' && path.toLowerCase().endsWith('.mp4');
+
 const publications = [
   {
-    title: 'HDMI: Learning Interactive Humanoid Whole-Body Control from Human Videos',
+    title: 'BFM-Zero: A Promptable Behavioral Foundation Model for Humanoid Control Using Unsupervised Reinforcement Learning',
+    authors:
+      'Yitang Li*, Zhengyi Luo*, Tonghe Zhang$, Cunxi Dai$, Anssi Kanervisto, Andrea Tirinzoni, <strong><u>Haoyang Weng</u></strong>, Kris Kitani, Mateusz Guzek, Ahmed Touati, Alessandro Lazaric, Matteo Pirotta†, Guanya Shi†',
     summary:
-      'A simple and general framework for acquiring whole-body interactive skills directly from human videos.',
-    image: '/images/projects/suitcase_4x.gif',
+        'Forward-backward model enables test-time reward optimization..',
+    image: bfmZeroPlaceholder,
+    badges: ['Humanoids', 'Unsupervised RL', 'Behavioral Foundation Models'],
+    links: [
+      {
+        label: 'ArXiv',
+        href: 'https://arxiv.org/abs/2511.04131'
+      },
+      {
+        label: 'Twitter',
+        href: 'https://x.com/li_yitang/status/1986819109959712815'
+      },
+      {
+        label: 'Website',
+        href: 'https://lecar-lab.github.io/BFM-Zero/'
+      },
+      {
+        label: 'Video',
+        href: 'https://www.youtube.com/watch?v=jYI-LZNvUY4'
+      },
+    ]
+  },
+  {
+    title: 'HDMI: Learning Interactive Humanoid Whole-Body Control from Human Videos',
+    authors: '<strong><u>Haoyang Weng</u></strong>, Yitang Li, Nikhil Sobanbabu, Zihan Wang, Zhengyi Luo, Tairan He, Deva Ramanan, Guanya Shi',
+    summary:
+      'A simple and general framework for acquiring whole-body interactive skills from videos.',
+    image: hdmiVideo,
     badges: ['Humanoids', 'Learning from Demonstrations', 'Reinforcement Learning'],
     links: [
       {
@@ -61,9 +104,10 @@ const publications = [
   },
   {
     title: 'FACET: Force-Adaptive Control via Impedance Reference Tracking for Legged Robots',
+    authors: 'Botian Xu*, <strong><u>Haoyang Weng</u></strong>*, Qingzhou Lu*, Yang Gao, Huazhe Xu',
     summary:
-      'Force-adaptive policy conditioned on desired stiffness as command input, enabling variable impedance control.',
-    image: '/images/projects/impedance.gif',
+      'Force-adaptive policy conditioned on desired stiffness enabling variable impedance control.',
+    image: facetVideo,
     badges: ['CoRL 2025 (Oral)', 'Impedance Control', 'Reinforcement Learning'],
     links: [
       {
@@ -86,9 +130,10 @@ const publications = [
   },
   {
     title: 'On Scaling Up 3D Gaussian Splatting',
+    authors: 'Hexu Zhao, <strong><u>Haoyang Weng</u></strong>*, Daohan Lu*, Ang Li, Jinyang Li, Aurojit Panda, Saining Xie',
     summary:
-      'Developed √batch-size learning-rate scaling that enables near-linear speedup in distributed 3DGS training.',
-    image: '/images/projects/3dgs_640-fast.gif',
+      '√batch-size learning-rate scaling enables near-linear speedup in distributed 3DGS training.',
+    image: threeDgsVideo,
     badges: ['ICLR 2025 (Oral)', 'Optimization', 'Distributed Training'],
     links: [
       {
@@ -107,9 +152,10 @@ const publications = [
   },
   {
     title: 'Reinforcement Learning with Foundation Priors: Let Embodied Agent Efficiently Learn on Its Own',
+    authors: 'Weirui Ye, Yunsheng Zhang, <strong><u>Haoyang Weng</u></strong>, Xianfan Gu, Shengjie Wang, Tong Zhang, Mengchen Wang, Pieter Abbeel, Yang Gao',
     summary:
-      'Introduced the RLFP framework that leverages foundation models for policy and value guidance in real-world RL finetuning.',
-    image: '/images/projects/rlfp.png',
+      'Leverage foundation models for policy and value guidance in real-world RL finetuning.',
+    image: rlfpPoster,
     badges: ['CoRL 2024 (Oral)', 'Reinforcement Learning', 'Foundation Models'],
     links: [
       {
@@ -122,17 +168,30 @@ const publications = [
 
 const projects = [
   {
-    title: 'Accelerating Model-based Learning of Locomotion with Pretrained Demonstrations',
+    title: 'VLA-Scratch',
     summary:
-      'PPO-trained A1 robot locomotion in IsaacGym with Dreamer-based online fine-tuning in MuJoCo.',
-    image: '/images/projects/gym2mjc.png',
-    badges: ['Model-based RL', 'Robotics']
+      'Implements a pi0-like flow VLA from scratch, analyzing system-level and optimization-level acceleration techniques.',
+    image: vlaPoster,
+    badges: ['Vision-Language-Action Models', 'Robotics'],
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/EGalahad/vla-scratch'
+      }
+    ]
   },
+  // {
+  //   title: 'Accelerating Model-based Learning of Locomotion with Pretrained Demonstrations',
+  //   summary:
+  //     'PPO-trained A1 robot locomotion in IsaacGym with Dreamer-based online fine-tuning in MuJoCo.',
+  //   image: '/images/projects/gym2mjc.png',
+  //   badges: ['Model-based RL', 'Robotics']
+  // },
   {
     title: 'Cyber Dribble: Flexible Framework for Agile Dribbling with Cyberdog2',
     summary:
       'Trained an agile dribbling policy for Cyberdog2 and delivered a full-stack deployment pipeline with pybind11.',
-    image: '/images/projects/cyber_dribble.gif',
+    image: cyberDribbleVideo,
     badges: ['Reinforcement Learning', 'C++/Pybind11', 'Sim2Real', 'Robotics'],
     links: [
       {
@@ -145,7 +204,7 @@ const projects = [
     title: 'Gauss Fusion: Seamless 3D Object Integration using Gaussian Splatting',
     summary:
       'Gaussian Splatting preprocessing and merging pipeline with interactive 3D visualization tools.',
-    image: '/images/projects/gauss_fusion.gif',
+    image: gaussFusionVideo,
     badges: ['Gaussian Splatting', '3D Reconstruction'],
     links: [
       {
@@ -158,7 +217,7 @@ const projects = [
     title: 'Audio Reactive Controls: Real Time Visualization of Music on Customised Hardware',
     summary:
       'Custom hardware music player driving ferrofluids and LED strips with low-latency audio processing in C++/libpulse.',
-    image: '/images/projects/audio_reactive_controls.gif',
+    image: audioReactiveVideo,
     badges: ['Embedded Systems', 'C++/libpulse', 'Raspberry Pi'],
     links: [
       {
@@ -166,6 +225,15 @@ const projects = [
         href: 'https://github.com/EGalahad/AudioReactiveControls'
       }
     ]
+  }
+];
+
+const extracurricular = [
+  {
+    title: 'Tsinghua Ballroom Dance Team',
+    // timeframe: '2021.9 - Present',
+    summary: 'Majors in Latin dance.',
+    image: rumbaVideo
   }
 ];
 </script>
@@ -180,7 +248,7 @@ const projects = [
     </v-row>
 
     <v-row class="bio-row" align="start">
-      <v-col cols="12" md="4" class="bio-photo">
+      <v-col cols="12" md="3" class="bio-photo">
         <v-sheet class="portrait-frame" elevation="0">
           <v-img :src="hero.avatar" :alt="`Portrait of ${hero.displayName}`" cover class="portrait" />
         </v-sheet>
@@ -197,7 +265,7 @@ const projects = [
           </v-list-item>
         </v-list>
       </v-col>
-      <v-col cols="12" md="8" class="bio-text">
+      <v-col cols="12" md="9" class="bio-text">
         <v-list class="bio-list" density="comfortable">
           <v-list-item v-for="line in hero.description" :key="line" class="bio-line">
             <template #title>
@@ -217,11 +285,28 @@ const projects = [
         <v-row class="entry" align="start">
           <v-col cols="12" sm="4" class="entry-media">
             <v-sheet class="entry-frame" elevation="0">
-              <v-img :src="item.image" :alt="`${item.title} preview`" cover class="entry-image" />
+              <LazyVideo
+                v-if="isVideo(item.image)"
+                :src="item.image"
+                class="entry-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+              <v-img
+                v-else
+                :src="item.image"
+                :alt="`${item.title} preview`"
+                cover
+                class="entry-image"
+              />
             </v-sheet>
           </v-col>
           <v-col cols="12" sm="8" class="entry-body">
             <h3 class="entry-title">{{ item.title }}</h3>
+            <p v-if="item.authors" class="entry-authors"><span v-html="item.authors" /></p>
             <p class="entry-summary">{{ item.summary }}</p>
             <div class="entry-tags">
               <span v-for="badge in item.badges" :key="badge" class="tag">{{ badge }}</span>
@@ -252,7 +337,24 @@ const projects = [
         <v-row class="entry" align="start">
           <v-col cols="12" sm="4" class="entry-media">
             <v-sheet class="entry-frame" elevation="0">
-              <v-img :src="item.image" :alt="`${item.title} preview`" cover class="entry-image" />
+              <LazyVideo
+                v-if="isVideo(item.image)"
+                :src="item.image"
+                class="entry-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+              <v-img
+                v-else
+                :src="item.image"
+                :alt="`${item.title} preview`"
+                cover
+                class="entry-image"
+                lazy-src
+              />
             </v-sheet>
           </v-col>
           <v-col cols="12" sm="8" class="entry-body">
@@ -272,6 +374,44 @@ const projects = [
                 {{ link.label }}
               </a>
             </div>
+          </v-col>
+        </v-row>
+        <v-divider class="entry-divider" />
+      </v-col>
+    </v-row>
+
+    <v-row class="section">
+      <v-col cols="12">
+        <h2 class="section-heading">Extracurricular</h2>
+        <v-divider class="section-divider" />
+      </v-col>
+      <v-col cols="12" v-for="item in extracurricular" :key="item.title">
+        <v-row class="entry" align="start">
+          <v-col cols="12" sm="4" class="entry-media">
+            <v-sheet class="entry-frame" elevation="0">
+              <LazyVideo
+                v-if="isVideo(item.image)"
+                :src="item.image"
+                class="entry-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+              <v-img
+                v-else
+                :src="item.image"
+                :alt="`${item.title} preview`"
+                cover
+                class="entry-image"
+              />
+            </v-sheet>
+          </v-col>
+          <v-col cols="12" sm="8" class="entry-body">
+            <h3 class="entry-title">{{ item.title }}</h3>
+            <p class="entry-authors">{{ item.timeframe }}</p>
+            <p class="entry-summary">{{ item.summary }}</p>
           </v-col>
         </v-row>
         <v-divider class="entry-divider" />
@@ -389,11 +529,40 @@ const projects = [
   width: 100%;
   overflow: hidden;
   border-radius: 10px;
+  aspect-ratio: 16 / 9;
 }
 
 .entry-image {
   width: 100%;
   height: 100%;
+}
+
+.entry-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  display: block;
+  background: #000;
+}
+
+.entry-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background: linear-gradient(120deg, #f2f4f7 0%, #eaedf3 50%, #f2f4f7 100%);
+  background-size: 200% 100%;
+  animation: placeholder-shimmer 1.2s ease-in-out infinite;
+  border-radius: 10px;
+}
+
+@keyframes placeholder-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 .entry-image :deep(img) {
@@ -408,15 +577,22 @@ const projects = [
 
 .entry-title {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #1a1a1a;
+}
+
+.entry-authors {
+  margin: 0;
+  color: #4a4a4a;
+  font-size: 0.7rem;
+  line-height: 1.4;
 }
 
 .entry-summary {
   margin: 0;
   color: #343434;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   line-height: 1.6;
 }
 
@@ -431,13 +607,14 @@ const projects = [
   border-radius: 12px;
   background-color: #eef4fb;
   color: #1f4f8a;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 .entry-links {
   display: flex;
   flex-wrap: wrap;
+  font-size: 0.8rem;
   gap: 12px;
   font-weight: 600;
 }
