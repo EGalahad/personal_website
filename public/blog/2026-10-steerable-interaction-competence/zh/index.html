@@ -184,9 +184,9 @@ html[lang="zh-CN"] #gap>blockquote{margin-top:20px;margin-bottom:20px;padding-to
 <p>在我看来，当前的 LLM——这里把它看作 S2——已经在具身理解和 spatial grounding 上展现出很强的泛化能力，但输出细粒度 action 的能力和 inference 频率，还不足以承担这一角色。这也是我认为目前仍需要 VLA 的原因。</p>
 <p>不过，两条路线正在相互靠近：LLM 正在增强 action 输出能力，VLA 也在追求更接近 LLM 的泛化能力，最终可能统一。因此，我认为需要保留的是 <strong>S1 的功能与运行频率</strong>；它是否对应一个独立模型，则是开放问题。</p>
 </div></details>
-<details class="qa-item" id="qa-embodiments"><summary>Q4 · 这里只讨论人形，其他本体能让 LLM/VLM 直接控制吗？</summary><div class="qa-answer">
+<details class="qa-item" id="qa-embodiments"><summary>Q4 · 其他本体呢？桌面夹爪机器人需要 S0 吗？</summary><div class="qa-answer">
 <p>关键不只是本体，而是控制能力从哪里来。LLM/VLM 在图文中学到的 spatial grounding，并不会因为接上双臂夹爪就自动变成控制能力；一个经过机器人数据训练的 VLA，则已经是另一种模型。它可以承担 S0 的角色，或把 S1 与 S0 的功能整合在一起。</p>
-<p>我的判断是，要做出灵巧的系统，目前主要有两条路：积累足够多的本体 teleop 数据，或者让 policy 在真实世界中通过 RL 学习。双臂夹爪的 teleop 比较容易做得快、做得稳定，也更容易积累到单个任务所需的数据量。因此，这类本体上已经出现了灵巧、快速的自主操作，例如<a href="https://developer.x2robot.com/developer/cases/ecs-ddltsipvwvh662qs">自变量 WALL-B 的双臂快递分拣</a>。这个例子说明其执行能力。</p>
+<p>我的判断是，要做出灵巧的系统，目前主要有两条路：积累足够多的本体 teleop 数据，或者让 policy 在真实世界中通过 RL 学习。例如，双臂夹爪系统相对简单，也更容易 teleop，因此更容易规模化采集示范数据。因此，这类本体上已经出现了灵巧、快速的自主操作，例如<a href="https://developer.x2robot.com/developer/cases/ecs-ddltsipvwvh662qs">自变量 WALL-B 的双臂快递分拣</a>。这个例子说明其执行能力。</p>
 <p>自动驾驶是另一个例子：成熟的自动驾驶系统已经具备很强的闭环控制能力，能够针对突然进入行驶路径的行人及时减速或制动。<a href="https://www.waymo.com/waymo-driver/">Waymo</a> 就把行人横穿等突发情况纳入响应测试。我认为，这类 responsiveness 的重要基础，是大量与车辆本体相关的驾驶数据：车辆看到了什么、采取了怎样的转向或制动、随后发生了什么。<a href="https://wayve.ai/technology/">Wayve</a> 也将从车队采集真实驾驶数据、训练并改进驾驶能力作为其技术路线。这样的数据积累，让模型有机会学会在驾驶的控制时间尺度上，根据环境变化快速调整行为。</p>
 <p>对于灵巧手和人形，我认为同等规模的本体 teleop 数据更难获得，数据扩展仍需要大量借助无本体的 human video 等来源。这些数据可以提供空间、动作与交互意图的先验，却没有让目标 policy 亲自经历自己输出的 action 在该本体上产生什么物理后果。如果主要依靠这类数据训练，不能据此期待 VLA 自动获得本文所说的 dynamics grounding；这部分经验需要在 simulation 或真实世界的闭环交互中补上。</p>
 <p>这里也需要区分两件事：teleop 数据能教会模型任务内的灵巧操作；而本文更严格地使用 dynamics grounding，强调 policy 自身的 action–feedback 学习经历。一个任务做得灵巧，并不能单凭表现说明它具有后一种训练经历。</p>
