@@ -50,7 +50,7 @@ const blogPosts = [
   {
     title: 'Beyond Motion Tracking: Steerable Physical Interaction Competence',
     summary: 'Dynamics-grounded controllers and expressive interfaces that realize interaction intent in the physical world.',
-    date: '2026-10-14',
+    date: '2026-10-18',
     month: 'Oct 2026',
     meta: 'Robotics · S0 · Physical interaction',
     href: '/blog/2026-10-steerable-interaction-competence/en/'
