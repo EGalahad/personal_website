@@ -38,9 +38,24 @@ const hero = {
     {
       label: 'Twitter',
       href: 'https://x.com/ElijahGalahad'
+    },
+    {
+      label: 'Blog',
+      href: '#blog'
     }
   ]
 };
+
+const blogPosts = [
+  {
+    title: 'Beyond Motion Tracking: Steerable Physical Interaction Competence',
+    summary: 'Dynamics-grounded controllers and expressive interfaces that realize interaction intent in the physical world.',
+    date: '2026-10-14',
+    month: 'Oct 2026',
+    meta: 'Robotics · S0 · Physical interaction',
+    href: '/blog/2026-10-steerable-interaction-competence/en/'
+  }
+];
 
 const entryDestination = (item, label) => item.links?.find((link) => link.label === label)?.href;
 
@@ -281,6 +296,22 @@ const extracurricular = [
             </template>
           </v-list-item>
         </v-list>
+      </v-col>
+    </v-row>
+
+    <v-row id="blog" class="section blog-section">
+      <v-col cols="12">
+        <h2 class="section-heading">Blog</h2>
+        <v-divider class="section-divider" />
+        <a v-for="post in blogPosts" :key="post.href" :href="post.href" class="blog-entry">
+          <time class="blog-date" :datetime="post.date">{{ post.month }}</time>
+          <div class="blog-body">
+            <h3 class="blog-title">{{ post.title }}</h3>
+            <p class="blog-summary">{{ post.summary }}</p>
+            <span class="blog-meta">{{ post.meta }}</span>
+          </div>
+          <span class="blog-arrow" aria-hidden="true">→</span>
+        </a>
       </v-col>
     </v-row>
 
