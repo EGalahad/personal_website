@@ -1,93 +1,33 @@
-# personal_website-vue 维护说明
+# Personal website
 
-这个仓库是源码仓库（`personal_website-vue`），`dist/` 是独立的发布仓库（remote: `git@github.com:EGalahad/personal_website-dist.git`）。
+个人主页源码，使用 Vue、Vuetify 和 Vite。线上地址：https://haoyangweng.pages.dev/。
 
-## 1) 新增一个项目要改哪些文件
+## 修改内容
 
-最常见需要修改这些位置：
+- 主页、论文和项目列表：`src/views/Home.vue`。
+- 图片和视频：`src/assets/images/`。
+- 博客文章及资源：`public/blog/`。
+- 全局样式：`styles/global.css`。
 
-- `src/views/Home.vue`
-  - 在 `const projects = [...]` 中新增一个对象：
-    - `title`
-    - `summary`
-    - `image`
-    - `badges`
-    - `links`
-- `src/assets/images/projects/`
-  - 放项目封面图或视频（当前支持 `.png/.jpg/.jpeg/.mp4`）
-- `styles/global.css`（可选）
-  - 如果要改样式、间距、字体等
+## 本地开发与构建
 
-如果是新增论文条目，则改 `src/views/Home.vue` 里的 `publications` 数组，并把素材放到 `src/assets/images/publications/`。
-
-## 2) 本地开发预览
+使用 Node.js 20 或更高版本：
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-默认会启动 Vite 开发服务（配置在 `vite.config.js`）。
+运行 `npm run build` 生成 `dist/`。该目录是本地构建产物，不需要另行提交。
 
-## 3) 构建发布文件
+请提交 `package-lock.json`；修改依赖后用 `npm install` 更新锁文件。
 
-```bash
-npm run build
-```
+## 自动发布
 
-执行后会重新生成 `dist/` 内容（这部分是要发布到 `personal_website-dist` 的）。
+推送源码后，仓库 Webhook 会通知 Cloudflare Pages。汇总仓库 [EGalahad/website](https://github.com/EGalahad/website) 的脚本会拉取本仓库 main 分支，并与 sim2real、boltrt 文档一起构建、发布：
 
-## 4) 提交源码仓库（当前仓库）
+- 本仓库的 `dist/` → 网站根目录。
+- sim2real 文档 → `/sim2real/`。
+- boltrt 文档 → `/boltrt/`。
 
-在项目根目录执行：
-
-```bash
-git add src styles vite.config.js package.json package-lock.json README.md
-git commit -m "update website content"
-git push origin main
-```
-
-如果你改动了其他文件，把它们也加上。
-
-## 5) 提交发布仓库（dist）
-
-```bash
-cd dist
-git add -A
-git commit -m "deploy: rebuild site"
-git push origin main
-cd ..
-```
-
-## 6) 推荐的完整流程（每次更新）
-
-```bash
-# 1) 修改源码（主要是 src/views/Home.vue + 素材文件）
-
-# 2) 本地检查
-npm run dev
-
-# 3) 构建
-npm run build
-
-# 4) 提交源码仓库
-git add -A
-git commit -m "update website"
-git push origin main
-
-# 5) 提交 dist 发布仓库
-cd dist
-git add -A
-git commit -m "deploy: update site"
-git push origin main
-cd ..
-```
-
-## 常见问题
-
-- `git add -A` 后没有 `dist` 变化：
-  - 正常，因为根仓库 `.gitignore` 已忽略 `dist/`，需要进入 `dist/` 单独提交。
-- `dist/` 提交失败：
-  - 先在 `dist/` 下执行 `git remote -v`，确认 remote 还是 `personal_website-dist`。
-- 命令写成 `puhs`：
-  - 正确命令是 `push`。
+不再需要构建后推送 personal_website-dist，也不依赖 GitHub Actions。Cloudflare 的部署状态及三个源码提交号可在 Pages 构建日志中查看。任一构建失败会保留上一次成功的线上版本。
