@@ -25,23 +25,23 @@ const hero = {
   links: [
     {
       label: 'CV',
+      icon: 'ai ai-cv',
       href: 'https://docs.google.com/document/d/17crYmr2iqoUm9oktdJ4WDM960CwqA_jkrdp36a6NkW8/edit?usp=sharing'
     },
     {
-      label: 'Email',
-      href: 'mailto:wenghy22@mails.tsinghua.edu.cn'
-    },
-    {
       label: 'GitHub',
+      icon: 'fab fa-github',
       href: 'https://github.com/EGalahad'
     },
     {
-      label: 'Twitter',
-      href: 'https://x.com/ElijahGalahad'
+      label: 'Google Scholar',
+      icon: 'ai ai-google-scholar',
+      href: 'https://scholar.google.com/citations?user=leVIam8AAAAJ&hl=en'
     },
     {
-      label: 'Blog',
-      href: '#blog'
+      label: 'Twitter',
+      icon: 'fab fa-x-twitter',
+      href: 'https://x.com/ElijahGalahad'
     }
   ]
 };
@@ -275,18 +275,19 @@ const extracurricular = [
         <v-sheet class="portrait-frame" elevation="0">
           <v-img :src="hero.avatar" :alt="`Portrait of ${hero.displayName}`" cover class="portrait" />
         </v-sheet>
-        <v-list class="link-list" density="comfortable">
-          <v-list-item class="link-line">
-            <template #title>
-              <span class="link-pipe">|</span>
-              <span v-for="(link, index) in hero.links" :key="link.href">
-                <a :href="link.href" :target="link.href.startsWith('#') ? undefined : '_blank'" rel="noopener noreferrer">{{ link.label }}</a>
-                <span class="link-pipe">|</span>
-                <span v-if="index === 1" class="link-break" />
-              </span>
-            </template>
-          </v-list-item>
-        </v-list>
+        <nav class="social-icons" aria-label="Profile links">
+          <a
+            v-for="link in hero.links"
+            :key="link.href"
+            :href="link.href"
+            :title="link.label"
+            :aria-label="link.label"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i :class="link.icon" aria-hidden="true" />
+          </a>
+        </nav>
       </v-col>
       <v-col cols="12" md="9" class="bio-text">
         <v-list class="bio-list" density="comfortable">
@@ -481,24 +482,36 @@ const extracurricular = [
   height: 100%;
 }
 
-.link-list {
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
   width: 100%;
 }
 
-.link-line {
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-.link-pipe {
-  margin: 0 6px;
-  font-weight: 600;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
   color: #1772d0;
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
-.link-break {
-  display: block;
+.social-icons a:hover,
+.social-icons a:focus-visible {
+  color: #f09228;
+  background-color: rgba(23, 114, 208, 0.08);
+  transform: scale(1.2);
+}
+
+.social-icons .ai {
+  font-size: 1.4rem;
 }
 
 .bio-text {
@@ -821,8 +834,8 @@ const extracurricular = [
     align-items: flex-start;
   }
 
-  .link-line {
-    text-align: left;
+  .social-icons {
+    justify-content: flex-start;
   }
 
   .heading-divider {
