@@ -11,6 +11,7 @@ import cyberDribbleVideo from '@/assets/images/projects/cyber_dribble.mp4';
 import gaussFusionVideo from '@/assets/images/projects/gauss_fusion.mp4';
 import audioReactiveVideo from '@/assets/images/projects/audio_reactive_controls.mp4';
 import rumbaVideo from '@/assets/images/extra/rumba.mp4';
+import generalHoiVideo from '@/assets/images/blog/general-hoi.mp4';
 
 const hero = {
   displayName: 'Haoyang Weng 「翁颢洋」',
@@ -52,8 +53,14 @@ const blogPosts = [
     summary: 'Dynamics-grounded controllers and expressive interfaces that realize interaction intent in the physical world.',
     date: '2026-10-18',
     month: 'Oct 2026',
-    meta: 'Robotics · S0 · Physical interaction',
-    href: '/blog/2026-10-steerable-interaction-competence/en/'
+    image: generalHoiVideo,
+    href: '/blog/2026-10-steerable-interaction-competence/en/',
+    links: [
+      {
+        label: 'Twitter',
+        href: 'https://x.com/ElijahGalahad/status/2111872879059173632'
+      }
+    ]
   }
 ];
 
@@ -304,15 +311,32 @@ const extracurricular = [
       <v-col cols="12">
         <h2 class="section-heading">Blog</h2>
         <v-divider class="section-divider" />
-        <a v-for="post in blogPosts" :key="post.href" :href="post.href" class="blog-entry">
-          <time class="blog-date" :datetime="post.date">{{ post.month }}</time>
-          <div class="blog-body">
-            <h3 class="blog-title">{{ post.title }}</h3>
-            <p class="blog-summary">{{ post.summary }}</p>
-            <span class="blog-meta">{{ post.meta }}</span>
-          </div>
-          <span class="blog-arrow" aria-hidden="true">→</span>
-        </a>
+      </v-col>
+      <v-col cols="12" v-for="post in blogPosts" :key="post.href">
+        <v-row class="entry entry-clickable publication-entry" align="start">
+          <v-col cols="12" sm="4" class="entry-media">
+            <v-sheet class="entry-frame" elevation="0">
+              <LazyVideo
+                :src="post.image"
+                class="entry-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+            </v-sheet>
+          </v-col>
+          <v-col cols="12" sm="8" class="entry-body">
+            <h3 class="entry-title"><a :href="post.href" class="publication-main-link">{{ post.title }}</a><span class="entry-arrow" aria-hidden="true">→</span></h3>
+            <p class="entry-authors"><time :datetime="post.date">{{ post.month }}</time></p>
+            <p class="entry-summary">{{ post.summary }}</p>
+            <div class="entry-links publication-links">
+              <a v-for="link in post.links" :key="link.href" :href="link.href" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+            </div>
+          </v-col>
+        </v-row>
+        <v-divider class="entry-divider" />
       </v-col>
     </v-row>
 
@@ -733,93 +757,8 @@ const extracurricular = [
   scroll-margin-top: 32px;
 }
 
-.blog-entry {
-  display: grid;
-  grid-template-columns: 94px minmax(0, 1fr) 24px;
-  gap: 20px;
-  padding: 18px 12px 22px;
-  margin: -4px -12px 0;
-  border-bottom: 1px solid #e4e7e1;
-  color: #1a1a1a;
-  border-radius: 6px 6px 0 0;
-  transition: background-color 160ms ease;
-}
-
-.blog-entry:hover {
-  background: #f5f7f3;
-  color: #1a1a1a;
-}
-
-.blog-entry:focus-visible {
-  outline: 2px solid #1772d0;
-  outline-offset: 4px;
-}
-
-.blog-date {
-  font-size: 0.85rem;
-  color: #777d73;
-  padding-top: 3px;
-  white-space: nowrap;
-}
-
-.blog-title {
-  font-size: 1.2rem;
-  line-height: 1.45;
-  font-weight: 600;
-  margin: 0 0 9px;
-}
-
-.blog-entry:hover .blog-title {
-  color: #1772d0;
-}
-
-.blog-summary {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #52594e;
-  margin: 0 0 12px;
-}
-
-.blog-meta {
-  font-size: 0.75rem;
-  color: #7a8175;
-}
-
-.blog-arrow {
-  font-size: 1.4rem;
-  line-height: 1.3;
-  color: #7d8975;
-}
-
-@media (max-width: 600px) {
-  .blog-entry {
-    grid-template-columns: minmax(0, 1fr) 20px;
-    gap: 8px 14px;
-    padding-top: 14px;
-  }
-
-  .blog-date {
-    grid-column: 1;
-    font-size: 0.8rem;
-  }
-
-  .blog-body {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .blog-arrow {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .blog-title {
-    font-size: 1.1rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .blog-entry, .entry-clickable {
+  .entry-clickable {
     transition: none;
   }
 }
